@@ -1,17 +1,24 @@
 
 on:
   pull_request:
-    branches: [main]
+    types: [closed]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Check release info
-      run: |
-        echo "prBody=${{ github.event.pull_request.body }}" >> $GITHUB_ENV
-        echo "prTitle=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
-        echo "prTag=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
-        echo "${{ env.prBody }}"
-        echo "${{ env.prTitle }}"
-        echo "${{ env.prTag }}"
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.pull_request.title }}
+          release_name: ${{ github.event.pull_request.title }}
+          body: ${{ github.event.pull_request.body }}
+          draft: false
+          prerelease: false
