@@ -13,9 +13,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
-    - uses: actions/checkout@v2
-    - uses: ncipollo/release-action@v1
-      with:
-        bodyFile: "body.md"
-        tag: ${{ github.run_id }}
-        token: ${{ secrets.GITHUB_TOKEN }}
