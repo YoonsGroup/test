@@ -15,8 +15,7 @@ jobs:
     
     - name: Check release info
       run: |
-        echo "${{ steps.get_release.outputs.id }}"
-        echo "${{ steps.get_release.outputs.html_url }}"
-        echo "${{ steps.get_release.outputs.upload_url }}"
-        echo "${{ steps.get_release.outputs.tag_name }}"
+        echo "${{ github.event.release.body }}"
+        echo "${{ github.event.release.tag_name }}"
+        echo "${{ github.event.release.name }}"
 
