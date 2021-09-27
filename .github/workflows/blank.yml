@@ -12,3 +12,6 @@ jobs:
         echo "prBody=${{ github.event.pull_request.body }}" >> $GITHUB_ENV
         echo "prTitle=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
         echo "prTag=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+        echo "${{ env.prBody }}"
+        echo "${{ env.prTitle }}"
+        echo "${{ env.prTag }}"
