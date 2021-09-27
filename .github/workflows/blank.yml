@@ -1,21 +1,12 @@
 
 on:
-  release:
-    types: [created]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Get release
-      id: get_release
-      uses: bruceadams/get-release@v1.2.3
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-    
     - name: Check release info
       run: |
-        echo "${{ github.event.release.body }}"
-        echo "${{ github.event.release.tag_name }}"
-        echo "${{ github.event.release.name }}"
-
+        echo "${{ github.event.pull_request }}"
