@@ -9,4 +9,6 @@ jobs:
     steps:
     - name: Check release info
       run: |
-        echo "${{ github.event.pull_request }}"
+        echo "prBody=${{ github.event.pull_request.body }}" >> $GITHUB_ENV
+        echo "prTitle=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+        echo "prTag=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
