@@ -5,6 +5,7 @@ on:
       appName:
         description: "Application to Do DB Migration"
         required: true
+        type: choice
         options:
           - api
           - customer_dashboard
