@@ -28,7 +28,7 @@ jobs:
       - name: set values
         id: vars
         run: |
-          echo "appNameChanged=${{ outputs.appName }}" | tr _ - >> $GITHUB_OUTPUT
+          echo "appNameChanged=${{ inputs.appName }}" | tr _ - >> $GITHUB_OUTPUT
   db_migration:
     uses: ./.github/workflows/run.yml
     with:
