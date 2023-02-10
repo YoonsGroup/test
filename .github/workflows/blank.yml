@@ -23,9 +23,9 @@ jobs:
     uses: ./.github/workflows/run.yml
     with:
       app_name: colorkrew_${{ inputs.appName }}
-      aks_namespace: colorkrew-id-api
-      aks_chart_name: api-chart
-      aks_chart_dir_name: api-chart
-      aks_chart_template_name: api.yaml
+      aks_namespace: colorkrew-id-${{ inputs.appName//_/-}}
+      aks_chart_name: ${{ inputs.appName//_/-}}-chart
+      aks_chart_dir_name: ${{ inputs.appName//_/-}}-chart
+      aks_chart_template_name: ${{ inputs.appName//_/-}}.yaml
       branchName: ${{ inputs.branchName }}
     secrets: inherit
