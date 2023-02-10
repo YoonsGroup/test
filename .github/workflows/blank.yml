@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "appNameChanged=${{ inputs.appName }}" | tr _ - >> $GITHUB_OUTPUT
   db_migration:
+    needs: set-vars
     uses: ./.github/workflows/run.yml
     with:
       app_name: colorkrew_${{ needs.set-vars.outputs.appNameChanged }}
