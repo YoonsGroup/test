@@ -19,16 +19,23 @@ on:
           - develop
           - stage
           - production
-env:
-  appNameC : ${{ inputs.appName//_/-}}
 jobs:
+  set-vars:
+    runs-on: ubuntu-latest
+    outputs:
+      appNameChanged: ${{ steps.vars.outputs.appNameChanged }}
+    steps:
+      - name: set values
+        id: vars
+        run: |
+          echo "appNameChanged=${{ outputs.appName }}" | tr _ - >> $GITHUB_OUTPUT
   db_migration:
     uses: ./.github/workflows/run.yml
     with:
-      app_name: colorkrew_${{ env.appNameC }}
-      aks_namespace: colorkrew-id-${{ env.appNameC }}
-      aks_chart_name: ${{ env.appNameC }}-chart
-      aks_chart_dir_name: ${{ env.appNameC }}-chart
-      aks_chart_template_name: ${{ env.appNameC }}.yaml
+      app_name: colorkrew_${{ needs.set-vars.outputs.appNameChanged }}
+      aks_namespace: colorkrew-id-${{ needs.set-vars.outputs.appNameChanged }}
+      aks_chart_name: ${{ needs.set-vars.outputs.appNameChanged }}-chart
+      aks_chart_dir_name: ${{ needs.set-vars.outputs.appNameChanged }}-chart
+      aks_chart_template_name: ${{ needs.set-vars.outputs.appNameChanged }}.yaml
       branchName: ${{ inputs.branchName }}
     secrets: inherit
