@@ -1,14 +1,31 @@
-
+name: testtest
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - main
-
+  workflow_dispatch:
+    inputs:
+      appName:
+        description: "Application to Do DB Migration"
+        required: true
+        options:
+          - api
+          - customer_dashboard
+          - dev_dashboard
+      branchName:
+        description: "Deploy to which environment"
+        required: true
+        type: choice
+        options:
+          - debug
+          - develop
+          - stage
+          - production
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Check release info!
-      run: |
-        echo "${{ github.event.pull_request }}"
+  db_migration:
+    uses: ./.github/workflows/run.yml
+    with:
+      app_name: colorkrew_${{ inputs.appName }}
+      aks_namespace: colorkrew-id-api
+      aks_chart_name: api-chart
+      aks_chart_dir_name: api-chart
+      aks_chart_template_name: api.yaml
+      branchName: ${{ inputs.branchName }}
+    secrets: inherit
