@@ -19,14 +19,16 @@ on:
           - develop
           - stage
           - production
+env:
+  appNameC : ${{ inputs.appName//_/-}}
 jobs:
   db_migration:
     uses: ./.github/workflows/run.yml
     with:
-      app_name: colorkrew_${{ inputs.appName }}
-      aks_namespace: colorkrew-id-${{ inputs.appName//_/-}}
-      aks_chart_name: ${{ inputs.appName//_/-}}-chart
-      aks_chart_dir_name: ${{ inputs.appName//_/-}}-chart
-      aks_chart_template_name: ${{ inputs.appName//_/-}}.yaml
+      app_name: colorkrew_${{ env.appNameC }}
+      aks_namespace: colorkrew-id-${{ env.appNameC }}
+      aks_chart_name: ${{ env.appNameC }}-chart
+      aks_chart_dir_name: ${{ env.appNameC }}-chart
+      aks_chart_template_name: ${{ env.appNameC }}.yaml
       branchName: ${{ inputs.branchName }}
     secrets: inherit
